@@ -16,6 +16,7 @@ Install and start dataspace:
 9. (extra step) commended out the "alias" line from consumer env file
      
 10. Inject the Membership Credential
+```
 curl -X POST "http://localhost:7082/api/identity/v1alpha/participants/Y29uc3VtZXItY29udHJvbHBsYW5l/credentials" \
   -H "X-Api-Key: c3VwZXItdXNlcg==.c3VwZXItc2VjcmV0LWtleQo=" \
   -H "Content-Type: application/json" \
@@ -44,12 +45,13 @@ curl -X POST "http://localhost:7082/api/identity/v1alpha/participants/Y29uc3VtZX
       }
     }
   }'
+```
 	7. Update the Consumer Control Plane .env 
         nano consumer/consumer-connector.env (EDC_IAM_STS_OAUTH_CLIENT_SECRET=6vWTuChwtPZoTX6q ..this was received after the seed))
 	9. Restart the Consumer Control Plane
          sudo docker-compose -f consumer/docker-compose.yml restart consumer-controlplane
 	11. Manually Seed the Secret into the Control Plane (remember to update the "value")
-
+```
         curl -X POST "http://localhost:8081/api/management/v3/secrets" \
           -H "X-Api-Key: password" \
           -H "Content-Type: application/json" \
@@ -61,13 +63,14 @@ curl -X POST "http://localhost:7082/api/identity/v1alpha/participants/Y29uc3VtZX
             "@id": "did:web:consumer-did-web-sts-client-secret",
             "value": "6Y7UKgF5Pf3kiwaI"
           }'
-
+```
       
 
 12. Verify the Secret exists 
     curl -X GET "http://localhost:8081/api/management/v3/secrets/did:web:consumer-did-web-sts-client-secret" -H "X-Api-Key: password"
 
 13: 
+```
 curl -X POST http://localhost:8081/api/management/v3/catalog/request \
    -H "Content-Type: application/json" \
    -H "X-Api-Key: password" \
@@ -80,7 +83,7 @@ curl -X POST http://localhost:8081/api/management/v3/catalog/request \
      "counterPartyId": "did:web:provider-did-web",
      "protocol": "dataspace-protocol-http"
    }'
-
+```
 
 
     Test getting the tokens:
