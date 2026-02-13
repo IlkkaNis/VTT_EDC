@@ -70,9 +70,10 @@ curl -X POST "http://localhost:7082/api/identity/v1alpha/participants/Y29uc3VtZX
             "value": "6Y7UKgF5Pf3kiwaI"
           }'
 ```
-12. Verify the Secret exists 
+12. Verify the Secret exists
+```    
     curl -X GET "http://localhost:8081/api/management/v3/secrets/did:web:consumer-did-web-sts-client-secret" -H "X-Api-Key: password"
-
+```
 13: 
 ```
 curl -X POST http://localhost:8081/api/management/v3/catalog/request \
@@ -92,6 +93,36 @@ curl -X POST http://localhost:8081/api/management/v3/catalog/request \
 
 EXTRA STUFF: 
 
+The "well formed" from the gemini is (I'm pretty sure): 
+
+curl -X POST "http://localhost:7082/api/identity/v1alpha/participants/Y29uc3VtZXItY29udHJvbHBsYW5l/credentials" \
+  -H "X-Api-Key: c3VwZXItdXNlcg==.c3VwZXItc2VjcmV0LWtleQo=" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "participantContextId": "consumer-controlplane",
+    "verifiableCredentialContainer": {
+      "format": "VC1_0_LD",
+      "rawVc": "{\"@context\":[\"https://www.w3.org/2018/credentials/v1\",{\"edc\":\"https://w3id.org/edc/v0.0.1/ns/\"}],\"id\":\"http://consumer-identityhub/credentials/membership\",\"type\":[\"VerifiableCredential\",\"MembershipCredential\"],\"issuer\":\"did:web:consumer-did-web\",\"issuanceDate\":\"2026-02-13T00:00:00Z\",\"credentialSubject\":{\"id\":\"did:web:consumer-did-web\",\"edc:membership\":\"true\"}}",
+      "credential": {
+        "@context": [
+          "https://www.w3.org/2018/credentials/v1",
+          "https://w3id.org/edc/v0.0.1/ns/"
+        ],
+        "id": "http://consumer-identityhub/credentials/membership",
+        "type": ["VerifiableCredential", "MembershipCredential"],
+        "issuer": "did:web:consumer-did-web",
+        "issuanceDate": "2026-02-13T00:00:00Z",
+        "credentialSubject": [
+          {
+            "id": "did:web:consumer-did-web",
+            "membership": "true"
+          }
+        ]
+      }
+    }
+  }'
+
+
 Check hub content:
 ```
 curl -X GET "http://localhost:7082/api/identity/v1alpha/participants/Y29uc3VtZXItY29udHJvbHBsYW5l/credentials" \
@@ -103,6 +134,28 @@ Delete the one you don't need:
 curl -X DELETE "http://localhost:7082/api/identity/v1alpha/participants/Y29uc3VtZXItY29udHJvbHBsYW5l/credentials/40989e07-95d8-4652-abd3-6a0e174a92ff" \
   -H "X-Api-Key: c3VwZXItdXNlcg==.c3VwZXItc2VjcmV0LWtleQo="
 ```
+
+I try to force activating the participant: 
+curl -v -X POST "http://localhost:7082/api/identity/v1alpha/participants/Y29uc3VtZXItY29udHJvbHBsYW5l/state?state=ACTIVATED" \
+  -H "X-Api-Key: c3VwZXItdXNlcg==.c3VwZXItc2VjcmV0LWtleQo="
+
+  Then I check the status: 
+  curl -X GET "http://localhost:7082/api/identity/v1alpha/participants/Y29uc3VtZXItY29udHJvbHBsYW5l" \
+  -H "X-Api-Key: c3VwZXItdXNlcg==.c3VwZXItc2VjcmV0LWtleQo="
+
+curl -v -X POST "http://localhost:7082/api/identity/v1alpha/participants/Y29uc3VtZXItY29udHJvbHBsYW5l/state?state=CREATED" \
+  -H "X-Api-Key: c3VwZXItdXNlcg==.c3VwZXItc2VjcmV0LWtleQo="
+
+  And finally I do this: 
+  
+
+
+
+
+
+
+
+
 
     Test getting the tokens:
 
