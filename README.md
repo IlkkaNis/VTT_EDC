@@ -127,3 +127,36 @@ curl -X POST "http://localhost:7081/api/credentials/v1/participants/Y29uc3VtZXIt
     "scope": ["membership"]
   }'
 
+
+
+THIS TOOK ME FORWRD:
+
+curl -X POST "http://localhost:7082/api/identity/v1alpha/participants/Y29uc3VtZXItY29udHJvbHBsYW5l/credentials" \
+  -H "X-Api-Key: c3VwZXItdXNlcg==.c3VwZXItc2VjcmV0LWtleQo=" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "participantContextId": "consumer-controlplane",
+    "verifiableCredentialContainer": {
+      "format": "VC1_0_LD",
+      "rawVc": "{\"@context\":[\"https://www.w3.org/2018/credentials/v1\",{\"membership\":\"https://w3id.org/edc/v0.0.1/ns/membership\"}],\"id\":\"membership-credential\",\"type\":[\"VerifiableCredential\",\"MembershipCredential\"],\"issuer\":\"did:web:consumer-did-web\",\"issuanceDate\":\"2026-02-13T00:00:00Z\",\"credentialSubject\":[{\"id\":\"did:web:consumer-did-web\",\"membership\":\"true\"}]}",
+      "credential": {
+        "@context": [
+          "https://www.w3.org/2018/credentials/v1",
+          {
+            "membership": "https://w3id.org/edc/v0.0.1/ns/membership"
+          }
+        ],
+        "id": "membership-credential",
+        "type": ["VerifiableCredential", "MembershipCredential"],
+        "issuer": "did:web:consumer-did-web",
+        "issuanceDate": "2026-02-13T00:00:00Z",
+        "credentialSubject": [
+          {
+            "id": "did:web:consumer-did-web",
+            "membership": "true"
+          }
+        ]
+      }
+    }
+  }'
+
