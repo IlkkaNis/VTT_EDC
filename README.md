@@ -70,8 +70,6 @@ curl -X POST "http://localhost:7082/api/identity/v1alpha/participants/Y29uc3VtZX
             "value": "6Y7UKgF5Pf3kiwaI"
           }'
 ```
-      
-
 12. Verify the Secret exists 
     curl -X GET "http://localhost:8081/api/management/v3/secrets/did:web:consumer-did-web-sts-client-secret" -H "X-Api-Key: password"
 
@@ -91,6 +89,20 @@ curl -X POST http://localhost:8081/api/management/v3/catalog/request \
    }'
 ```
 
+
+EXTRA STUFF: 
+
+Check hub content:
+```
+curl -X GET "http://localhost:7082/api/identity/v1alpha/participants/Y29uc3VtZXItY29udHJvbHBsYW5l/credentials" \
+  -H "X-Api-Key: c3VwZXItdXNlcg==.c3VwZXItc2VjcmV0LWtleQo="
+```
+
+Delete the one you don't need:
+```
+curl -X DELETE "http://localhost:7082/api/identity/v1alpha/participants/Y29uc3VtZXItY29udHJvbHBsYW5l/credentials/40989e07-95d8-4652-abd3-6a0e174a92ff" \
+  -H "X-Api-Key: c3VwZXItdXNlcg==.c3VwZXItc2VjcmV0LWtleQo="
+```
 
     Test getting the tokens:
 
