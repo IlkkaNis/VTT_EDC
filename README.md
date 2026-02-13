@@ -5,14 +5,20 @@ Install and start dataspace:
 2. Run seed-minimal.sh
     ./seed-minimal.sh
 3. Extract "x" values
+   ```
    curl -X GET "http://localhost:7082/api/identity/v1alpha/dids" -H "X-Api-Key: c3VwZXItdXNlcg==.c3VwZXItc2VjcmV0LWtleQo="
    curl -X GET "http://localhost:7182/api/identity/v1alpha/dids"    -H "X-Api-Key: c3VwZXItdXNlcg==.c3VwZXItc2VjcmV0LWtleQo="
+   ```
 5. Update did.json file (consumer and provider)
-     nano consumer/did-web/.well-known/did.json
+```
+	 nano consumer/did-web/.well-known/did.json
      nano provider/did-web/.well-known/did.json
+```
 7. Restart nginx
+```
    sudo docker exec consumer-did-web nginx -s reload
    sudo docker exec provider-did-web nginx -s reload
+```
 9. (extra step) commended out the "alias" line from consumer env file
      
 10. Inject the Membership Credential
